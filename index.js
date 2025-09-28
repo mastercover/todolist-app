@@ -8,8 +8,12 @@ import authRouter from "./router/authRouter.js";
 import postRouter from "./router/postRouter.js";
 import categoryRouter from "./router/categoryRouter.js";
 import commentRouter from "./router/commentRouter.js";
+import taskRouter from "./router/taskRouter.js";
+import debug from 'debug'
 
 const app = express();
+const logApp = debug('myapp:server');
+const logRoute = debug('myapp:routes');
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(morgan("dev"));
@@ -20,12 +24,13 @@ app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/comments", commentRouter);
+app.use("/api/tasks", taskRouter);
 
 const port = process.env.PORT || 3000;
 
 connectDB().then(() => {
-  app.listen(port, () => console.log(`🚀 Server running http://localhost:${port}`));
+    app.listen(port, () => console.log(`🚀 Server running http://localhost:${port}`));
 }).catch((err) => {
-  console.error("❌ MongoDB connect error:", err);
-  process.exit(1);
+    console.error("❌ MongoDB connect error:", err);
+    process.exit(1);
 });
