@@ -8,5 +8,5 @@ r.get("/:slug", ctl.getOne);
 r.post("/", auth, ctl.create);
 r.put("/:id", auth, ctl.update);
 r.delete("/:id", auth, ctl.remove);
-
+ 
 export default r;
